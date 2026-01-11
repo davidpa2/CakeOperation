@@ -1,0 +1,12 @@
+body {
+    overflow: hidden;
+    height: inherit;
+    resize: none;
+    margin: 0;
+}
+
+canvas {
+    min-width: 100%;
+    cursor: crosshair;
+    display: block;
+}
