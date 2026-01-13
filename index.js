@@ -12,12 +12,17 @@ var cakeIdGenerator = 0;
 var generateCake = 0;
 var cakeFrequency = 50;
 
+var counter = 0;
+
 gameLoop();
 var game = setInterval(gameLoop, 15);
+
+canvas.addEventListener("click", checkImpact, false);
 
 function gameLoop() {
     drawBackground();
     drawCakes();
+    drawCakeCounter();
 
     ctx.imageSmoothingQuality = "high";
 }
@@ -50,11 +55,9 @@ function drawCakes() {
             cakes.delete(key);
         }
 
-        // if (checkImpact(cake)) {
-        //     showAdvice = false;
-        //     theEnd = true;
-        //     lost = true;
-        // }
+        if (checkImpact(cake)) {
+            counter += cake.number;
+        }
     }
 
     // Generate a cake
@@ -68,6 +71,22 @@ function drawCakes() {
     }
 
     generateCake++;    
+}
+
+function drawCakeCounter() {
+    ctx.font = "25px Times";
+    ctx.textAlign = "left"
+    ctx.fillStyle = "white";
+    ctx.fillText("Suma total: " + counter, 20, 35);
+}
+
+function checkImpact(e) {
+    for (const [key, cake] of cakes) {
+        if ((e.x > cake.x && e.x < cake.x + 50) && (e.y > cake.y && e.y < cake.y + 50)) {//
+            cakes.delete(key);
+            counter += cake.number;
+        }
+    }
 }
 
 function random(min, max) {
