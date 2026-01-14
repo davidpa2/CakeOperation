@@ -6,6 +6,8 @@ canvas.height = window.innerHeight;
 
 var cakeImg = new Image();
 cakeImg.src = "cake.png";
+var clockImg = new Image();
+clockImg.src = "clock.png";
 
 var cakes = new Map();
 var cakeIdGenerator = 0;
@@ -13,16 +15,20 @@ var generateCake = 0;
 var cakeFrequency = 75;
 
 var counter = 0;
+var timer = 30;
+var seconds = 30;
 
 gameLoop();
 var game = setInterval(gameLoop, 15);
 
 canvas.addEventListener("click", checkImpact, false);
+addEventListener("load", () => { setTimer(); })
 
 function gameLoop() {
     drawBackground();
     drawCakes();
     drawCakeCounter();
+    drawClock();
 
     ctx.imageSmoothingQuality = "high";
 }
@@ -72,13 +78,24 @@ function drawCakes() {
 function drawCakeCounter() {
     ctx.beginPath();
 
-    ctx.strokeStyle = "black";
     ctx.font = "120px Times";
     ctx.textAlign = "center"
     ctx.fillStyle = "white";
     ctx.strokeStyle = "black";
     ctx.fillText(counter, canvas.width / 2 + 10, canvas.height / 2);
     ctx.strokeText(counter, canvas.width / 2 + 10, canvas.height / 2);
+
+    ctx.closePath();
+}
+
+function drawClock() {
+    ctx.beginPath();
+    ctx.drawImage(clockImg, 0, 0, 60, 60);
+
+    ctx.font = "45px Times";
+    ctx.textAlign = "center"
+    ctx.fillStyle = "white";
+    ctx.fillText(seconds, 85, 45);
 
     ctx.closePath();
 }
@@ -90,6 +107,12 @@ function checkImpact(e) {
             counter += cake.number;
         }
     }
+}
+
+function setTimer() {
+    timer = window.setInterval(function () {
+        seconds--;
+    }, 1000);
 }
 
 function random(min, max) {
