@@ -30,6 +30,8 @@ function gameLoop() {
     drawCakeCounter();
     drawClock();
 
+    checkState();
+
     ctx.imageSmoothingQuality = "high";
 }
 
@@ -107,6 +109,17 @@ function checkImpact(e) {
             counter += cake.number;
         }
     }
+}
+
+function checkState() {
+    if (seconds === 0) {
+        clearInterval(timer);
+        clearInterval(game);
+    }
+
+    if (counter === 37) {
+        clearInterval(game);
+    } 
 }
 
 function setTimer() {
