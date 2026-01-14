@@ -10,7 +10,7 @@ cakeImg.src = "cake.png";
 var cakes = new Map();
 var cakeIdGenerator = 0;
 var generateCake = 0;
-var cakeFrequency = 50;
+var cakeFrequency = 75;
 
 var counter = 0;
 
@@ -43,7 +43,7 @@ function drawCakes() {
         ctx.font = "45px Times";
         ctx.fillStyle = "white";
         ctx.textAlign = "center"
-        ctx.strokeStyle = "black";
+        ctx.strokeStyle = "darkblue";
         ctx.lineWidth = 2.5;
         ctx.fillText(cake.number, cake.x + offsetX, cake.y + offsetY);
         ctx.strokeText(cake.number, cake.x + offsetX, cake.y + offsetY);
@@ -53,10 +53,6 @@ function drawCakes() {
         // If the cake beats the bottom bound, delete it
         if (cake.y > canvas.height) {
             cakes.delete(key);
-        }
-
-        if (checkImpact(cake)) {
-            counter += cake.number;
         }
     }
 
@@ -74,10 +70,17 @@ function drawCakes() {
 }
 
 function drawCakeCounter() {
-    ctx.font = "25px Times";
-    ctx.textAlign = "left"
+    ctx.beginPath();
+
+    ctx.strokeStyle = "black";
+    ctx.font = "120px Times";
+    ctx.textAlign = "center"
     ctx.fillStyle = "white";
-    ctx.fillText("Suma total: " + counter, 20, 35);
+    ctx.strokeStyle = "black";
+    ctx.fillText(counter, canvas.width / 2 + 10, canvas.height / 2);
+    ctx.strokeText(counter, canvas.width / 2 + 10, canvas.height / 2);
+
+    ctx.closePath();
 }
 
 function checkImpact(e) {
