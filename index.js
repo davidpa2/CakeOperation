@@ -36,6 +36,8 @@ function gameLoop() {
 
     checkState();
 
+    drawExplosion();
+
     if (theEnd) {
         drawReplaybutton();
     }
@@ -87,7 +89,7 @@ function drawCakes() {
     // Generate a cake
     if (generateCake == cakeFrequency) {
         let cakeSize = 60;
-        let cake = new Cake(cakeIdGenerator, random(0, canvas.width - cakeSize), - cakeSize, 1.5, cakeSize, cakeSize, random(-10, 10));
+        let cake = new Cake(cakeIdGenerator, random(0, canvas.width - cakeSize), - cakeSize, 1.6, cakeSize, cakeSize, random(-10, 10));
         cakes.set(cake.id, cake);
         
         cakeIdGenerator++;
@@ -143,6 +145,7 @@ function checkImpact(e) {
         if ((e.x > cake.x && e.x < cake.x + 50) && (e.y > cake.y && e.y < cake.y + 50)) {//
             cakes.delete(key);
             counter += cake.number;
+            createExplosion(e);
         }
     }
 }
