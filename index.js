@@ -4,6 +4,8 @@ const ctx = canvas.getContext("2d", { willReadFrequently: true });
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+var button = new Button(canvas.width / 4.6, canvas.height - 60, 240, 40);
+
 var cakeImg = new Image();
 cakeImg.src = "cake.png";
 var clockImg = new Image();
@@ -18,10 +20,12 @@ var counter = 0;
 var timer = 30;
 var seconds = 30;
 
+var theEnd = false;
+
 gameLoop();
 var game = setInterval(gameLoop, 15);
 
-canvas.addEventListener("click", checkImpact, false);
+canvas.addEventListener("click", (e) => { checkImpact(e); checkButtonClick(e);}, false);
 addEventListener("load", () => { setTimer(); })
 
 function gameLoop() {
@@ -29,7 +33,12 @@ function gameLoop() {
     drawCakes();
     drawCakeCounter();
     drawClock();
+
     checkState();
+
+    if (theEnd) {
+        drawReplaybutton();
+    }
 
     ctx.imageSmoothingQuality = "high";
 }
@@ -78,7 +87,7 @@ function drawCakes() {
     // Generate a cake
     if (generateCake == cakeFrequency) {
         let cakeSize = 60;
-        let cake = new Cake(cakeIdGenerator, random(0, canvas.width - cakeSize), - cakeSize, 1.4, cakeSize, cakeSize, random(-10, 10));
+        let cake = new Cake(cakeIdGenerator, random(0, canvas.width - cakeSize), - cakeSize, 1.5, cakeSize, cakeSize, random(-10, 10));
         cakes.set(cake.id, cake);
         
         cakeIdGenerator++;
@@ -114,6 +123,21 @@ function drawClock() {
     ctx.closePath();
 }
 
+function drawReplaybutton() {
+    ctx.beginPath();
+    ctx.roundRect(button.x, button.y, button.width, button.height, 12);
+    ctx.fillStyle = 'rgba(194, 194, 194, 0.5)';
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#0d00ca';
+    ctx.stroke();
+    ctx.closePath();
+    ctx.font = '25pt Times';
+    ctx.fillStyle = '#000000';
+    ctx.fillText('Jugar de nuevo', button.x + button.width / 2, button.y + (button.height / 2 + 10));
+    ctx.closePath();
+}
+
 function checkImpact(e) {
     for (const [key, cake] of cakes) {
         if ((e.x > cake.x && e.x < cake.x + 50) && (e.y > cake.y && e.y < cake.y + 50)) {//
@@ -127,17 +151,41 @@ function checkState() {
     if (seconds === 0) {
         clearInterval(timer);
         clearInterval(game);
+        theEnd = true;
     }
-
+    
     if (counter === 37) {
         clearInterval(game);
+        theEnd = true;
     } 
+}
+
+function checkButtonClick(e) {
+    var mousePosition = getMousePosition(e);
+    console.log("Checking click position", mousePosition);
+    
+    if (theEnd && isInside(mousePosition, button)){
+        window.location.reload();
+    }
 }
 
 function setTimer() {
     timer = window.setInterval(function () {
         seconds--;
     }, 1000);
+}
+
+function getMousePosition(event) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+    };
+}
+
+// Function to check whether a point is inside a rectangle
+function isInside(position, rect) {
+    return position.x > rect.x && position.x < rect.x + rect.width && position.y < rect.y + rect.height && position.y > rect.y
 }
 
 function random(min, max) {
