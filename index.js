@@ -29,7 +29,6 @@ function gameLoop() {
     drawCakes();
     drawCakeCounter();
     drawClock();
-
     checkState();
 
     ctx.imageSmoothingQuality = "high";
@@ -48,11 +47,23 @@ function drawCakes() {
         ctx.beginPath();
         ctx.drawImage(cakeImg, cake.x, cake.y, cake.sizeX, cake.sizeY);
         
-        ctx.font = "45px Times";
-        ctx.fillStyle = "white";
+        ctx.font = "bold 45px Jua";
+
+        switch (true) {
+            case cake.number > 0:
+                ctx.fillStyle = "Green";
+                break;
+            case cake.number < 0:
+                ctx.fillStyle = "Red";
+                break;
+            default:
+                ctx.fillStyle = "Green";
+                break;
+        }
+        
         ctx.textAlign = "center"
-        ctx.strokeStyle = "darkblue";
-        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 0.1;
         ctx.fillText(cake.number, cake.x + offsetX, cake.y + offsetY);
         ctx.strokeText(cake.number, cake.x + offsetX, cake.y + offsetY);
         ctx.closePath();
@@ -67,7 +78,7 @@ function drawCakes() {
     // Generate a cake
     if (generateCake == cakeFrequency) {
         let cakeSize = 60;
-        let cake = new Cake(cakeIdGenerator, random(0, canvas.width - cakeSize), - cakeSize, 1, cakeSize, cakeSize, random(-10, 10));
+        let cake = new Cake(cakeIdGenerator, random(0, canvas.width - cakeSize), - cakeSize, 1.4, cakeSize, cakeSize, random(-10, 10));
         cakes.set(cake.id, cake);
         
         cakeIdGenerator++;
@@ -84,6 +95,7 @@ function drawCakeCounter() {
     ctx.textAlign = "center"
     ctx.fillStyle = "white";
     ctx.strokeStyle = "black";
+    ctx.lineWidth = 2.5;
     ctx.fillText(counter, canvas.width / 2 + 10, canvas.height / 2);
     ctx.strokeText(counter, canvas.width / 2 + 10, canvas.height / 2);
 
@@ -130,5 +142,6 @@ function setTimer() {
 
 function random(min, max) {
     const num = Math.floor(Math.random() * (max - min + 1)) + min;
+    if (num === 0) return num + random(1, 10); //To avoid number 0
     return num;
 }
