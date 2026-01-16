@@ -13,11 +13,6 @@ const particlesMinSize = 1;
 const particlesMaxSize = 3;
 const explosions = [];
 
-// Optimization for mobile devices
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    fps = 29;
-}
-
 // Draw explosion(s)
 function drawExplosion() {
     if (explosions.length === 0) {
@@ -98,9 +93,19 @@ function particle(x, y) {
     this.xv = randInt(particlesMinSpeed, particlesMaxSpeed, false);
     this.yv = randInt(particlesMinSpeed, particlesMaxSpeed, false);
     this.size = randInt(particlesMinSize, particlesMaxSize, true);
-    this.r = randInt(113, 222);
-    this.g = '00';
-    this.b = randInt(105, 255);
+
+    let rnd = randInt(0,2, true);
+    console.log(rnd);
+    
+    if (rnd) {
+        this.r = randInt(210, 255);
+        this.g = 135;
+        this.b = 141;
+    } else {
+        this.r = 255;
+        this.g = randInt(230, 250);
+        this.b = 215;
+    }
 }
 
 // Returns an random integer, positive or negative
