@@ -21,6 +21,9 @@ var timer = 30;
 var seconds = 30;
 
 var theEnd = false;
+var win = false;
+
+    const jsConfetti = new JSConfetti();
 
 gameLoop();
 var game = setInterval(gameLoop, 15);
@@ -30,13 +33,18 @@ addEventListener("load", () => { setTimer(); })
 
 function gameLoop() {
     drawBackground();
-    drawCakes();
-    drawCakeCounter();
-    drawClock();
 
-    checkState();
-
-    drawExplosion();
+    if (!win) {
+        drawCakeCounter();
+        drawCakes();
+        drawClock();
+    
+        checkState();
+    
+        drawExplosion();
+    } else {
+    }
+    drawConfetti();
 
     if (theEnd) {
         drawReplaybutton();
@@ -140,6 +148,18 @@ function drawReplaybutton() {
     ctx.closePath();
 }
 
+function drawConfetti() {
+
+    
+    var number = random(0,150);
+    if (number === 1) {
+        jsConfetti.addConfetti({
+            confettiColors: ['#ff0a54', '#ff477e', '#ffffff', "#003cff"],
+            confettiNumber: 100
+        })
+    }
+}
+
 function checkImpact(e) {
     for (const [key, cake] of cakes) {
         if ((e.x > cake.x && e.x < cake.x + 50) && (e.y > cake.y && e.y < cake.y + 50)) {//
@@ -150,7 +170,7 @@ function checkImpact(e) {
     }
 }
 
-function checkState() {
+async function checkState() {
     if (seconds === 0) {
         clearInterval(timer);
         clearInterval(game);
@@ -158,8 +178,9 @@ function checkState() {
     }
     
     if (counter === 37) {
-        clearInterval(game);
+        // clearInterval(game);
         theEnd = true;
+        win = true;
     } 
 }
 
