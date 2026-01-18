@@ -68,7 +68,7 @@ function drawCakes() {
         ctx.beginPath();
         ctx.drawImage(cakeImg, cake.x, cake.y, cake.sizeX, cake.sizeY);
         
-        ctx.font = "bold 45px Jua";
+        ctx.font = "bold 45px Archivo Black";
 
         switch (true) {
             case cake.number > 0:
@@ -84,7 +84,7 @@ function drawCakes() {
         
         ctx.textAlign = "center"
         ctx.strokeStyle = "white";
-        ctx.lineWidth = 0.1;
+        ctx.lineWidth = 1;
         ctx.fillText(cake.number, cake.x + offsetX, cake.y + offsetY);
         ctx.strokeText(cake.number, cake.x + offsetX, cake.y + offsetY);
         ctx.closePath();
