@@ -23,30 +23,29 @@ var seconds = 30;
 var theEnd = false;
 var win = false;
 
-// var myConfetti = confetti.create(canvas, {
-//     resize: true,
-//     useWorker: true
-// });
-
 gameLoop();
 var game = setInterval(gameLoop, 15);
 
 canvas.addEventListener("click", (e) => { checkImpact(e); checkButtonClick(e);}, false);
-addEventListener("load", () => { setTimer(); })
+window.addEventListener("load", () => { setTimer(); })
+window.addEventListener("resize", function() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}, true);
 
 function gameLoop() {
     drawBackground();
+    drawCakeCounter();
 
     if (!win) {
-        drawCakeCounter();
         drawCakes();
         drawClock();
         
         checkState();
         
         drawExplosion();
-        drawConfetti();
     } else {
+        drawConfetti();
     }
 
     if (theEnd) {
@@ -152,31 +151,16 @@ function drawReplaybutton() {
 }
 
 function drawConfetti() {
-    // var number = random(0,150);
-    // if (number === 1 ) {        
-    if (!isShowingConfetti) {
-        console.log("Starting confetti");
-        
-        //     jsConfetti.addConfetti({
-        //         confettiColors: ['#ff0a54', '#ff477e', '#ffffff', "#003cff"],
-        //         confettiNumber: 100
-        //     })
-        
-        // confetti({
-            //     particleCount: 100,
-            //     spread: 70,
-        //     origin: { y: 0.6 }
-        // });
-        
-        // myConfetti({
-        //     angle: random(55, 125),
-        //     spread: random(50, 70),
-        //     particleCount: random(50, 100),
-        //     origin: { y: 0.6 }
-        // });
+    var number = random(0,200);
 
-        startConfetti();
-        isShowingConfetti = true;
+    if (number === 1) {
+        confetti({
+            angle: random(55, 125),
+            spread: random(50, 70),
+            particleCount: random(50, 100),
+            origin: { y: 0.9 },
+            colors: ["#ff0000", "#ffffff", "#1100ff"]
+        });
     }
 }
 
@@ -206,7 +190,6 @@ async function checkState() {
 
 function checkButtonClick(e) {
     var mousePosition = getMousePosition(e);
-    console.log("Checking click position", mousePosition);
     
     if (theEnd && isInside(mousePosition, button)){
         window.location.reload();
