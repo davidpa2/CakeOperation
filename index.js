@@ -21,22 +21,32 @@ var timer = 30;
 var seconds = 30;
 
 var theEnd = false;
+var win = false;
 
 gameLoop();
 var game = setInterval(gameLoop, 15);
 
 canvas.addEventListener("click", (e) => { checkImpact(e); checkButtonClick(e);}, false);
-addEventListener("load", () => { setTimer(); })
+window.addEventListener("load", () => { setTimer(); })
+window.addEventListener("resize", function() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}, true);
 
 function gameLoop() {
     drawBackground();
-    drawCakes();
     drawCakeCounter();
-    drawClock();
 
-    checkState();
-
-    drawExplosion();
+    if (!win) {
+        drawCakes();
+        drawClock();
+        
+        checkState();
+        
+        drawExplosion();
+    } else {
+        drawConfetti();
+    }
 
     if (theEnd) {
         drawReplaybutton();
@@ -140,6 +150,20 @@ function drawReplaybutton() {
     ctx.closePath();
 }
 
+function drawConfetti() {
+    var number = random(0,200);
+
+    if (number === 1) {
+        confetti({
+            angle: random(55, 125),
+            spread: random(50, 70),
+            particleCount: random(50, 100),
+            origin: { y: 0.9 },
+            colors: ["#ff0000", "#ffffff", "#1100ff"]
+        });
+    }
+}
+
 function checkImpact(e) {
     for (const [key, cake] of cakes) {
         if ((e.x > cake.x && e.x < cake.x + 50) && (e.y > cake.y && e.y < cake.y + 50)) {//
@@ -150,7 +174,7 @@ function checkImpact(e) {
     }
 }
 
-function checkState() {
+async function checkState() {
     if (seconds === 0) {
         clearInterval(timer);
         clearInterval(game);
@@ -158,14 +182,14 @@ function checkState() {
     }
     
     if (counter === 37) {
-        clearInterval(game);
+        // clearInterval(game);
         theEnd = true;
+        win = true;
     } 
 }
 
 function checkButtonClick(e) {
     var mousePosition = getMousePosition(e);
-    console.log("Checking click position", mousePosition);
     
     if (theEnd && isInside(mousePosition, button)){
         window.location.reload();
