@@ -23,7 +23,10 @@ var seconds = 30;
 var theEnd = false;
 var win = false;
 
-    const jsConfetti = new JSConfetti();
+// var myConfetti = confetti.create(canvas, {
+//     resize: true,
+//     useWorker: true
+// });
 
 gameLoop();
 var game = setInterval(gameLoop, 15);
@@ -38,13 +41,13 @@ function gameLoop() {
         drawCakeCounter();
         drawCakes();
         drawClock();
-    
+        
         checkState();
-    
+        
         drawExplosion();
+        drawConfetti();
     } else {
     }
-    drawConfetti();
 
     if (theEnd) {
         drawReplaybutton();
@@ -149,14 +152,31 @@ function drawReplaybutton() {
 }
 
 function drawConfetti() {
+    // var number = random(0,150);
+    // if (number === 1 ) {        
+    if (!isShowingConfetti) {
+        console.log("Starting confetti");
+        
+        //     jsConfetti.addConfetti({
+        //         confettiColors: ['#ff0a54', '#ff477e', '#ffffff', "#003cff"],
+        //         confettiNumber: 100
+        //     })
+        
+        // confetti({
+            //     particleCount: 100,
+            //     spread: 70,
+        //     origin: { y: 0.6 }
+        // });
+        
+        // myConfetti({
+        //     angle: random(55, 125),
+        //     spread: random(50, 70),
+        //     particleCount: random(50, 100),
+        //     origin: { y: 0.6 }
+        // });
 
-    
-    var number = random(0,150);
-    if (number === 1) {
-        jsConfetti.addConfetti({
-            confettiColors: ['#ff0a54', '#ff477e', '#ffffff', "#003cff"],
-            confettiNumber: 100
-        })
+        startConfetti();
+        isShowingConfetti = true;
     }
 }
 
