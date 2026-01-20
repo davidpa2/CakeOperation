@@ -21,8 +21,10 @@ var timer = 30;
 var seconds = 30;
 var time = 0;
 
+var red = 0, green = 0, blue = 0;
+
 var theEnd = false;
-var win = false;
+var win = true;
 
 gameLoop();
 var game = setInterval(gameLoop, 15);
@@ -117,17 +119,24 @@ function drawCakeCounter() {
     ctx.beginPath();
 
     if (win) {
+        //Variable text size
         var textSize = Math.abs(90 * Math.sin(time * 0.01)) + 60;
         ctx.font = `${textSize}px Times`;
+
+        //Variable stroke style
+        setVariableRGB();
+        ctx.strokeStyle = `rgb(${red}, ${green}, ${blue})`;
+
     } else {
         ctx.font = "120px Times";
+        ctx.strokeStyle = "black";
     }
+
     ctx.textAlign = "center"
     ctx.fillStyle = "white";
-    ctx.strokeStyle = "black";
     ctx.lineWidth = 2.5;
-    ctx.fillText(counter, canvas.width / 2 + 10, canvas.height / 2);
-    ctx.strokeText(counter, canvas.width / 2 + 10, canvas.height / 2);
+    ctx.fillText(37, canvas.width / 2 + 10, canvas.height / 2);
+    ctx.strokeText(37, canvas.width / 2 + 10, canvas.height / 2);
 
     ctx.closePath();
 }
@@ -238,6 +247,40 @@ function getMousePosition(event) {
 // Function to check whether a point is inside a rectangle
 function isInside(position, rect) {
     return position.x > rect.x && position.x < rect.x + rect.width && position.y < rect.y + rect.height && position.y > rect.y
+}
+
+function setVariableRGB() {
+    if (green === 0 && blue === 0) {
+        if (red < 255) {
+            red++;
+        }
+    }
+    if (red === 255 && blue === 0) {
+        if (green < 255) {
+            green++;
+        }
+    }
+    if (green === 255 && red === 255) {
+        if (blue < 255) {
+            blue++;
+        }
+    }
+
+    if (green === 255 && blue === 255) {
+        if (red > 0) {
+            red--;
+        }
+    }
+    if (red === 0 && blue === 255) {
+        if (green > 0) {
+            green--;
+        }
+    }
+    if (green === 0 && red === 0) {
+        if (blue > 0) {
+            blue--;
+        }
+    }
 }
 
 function random(min, max) {
