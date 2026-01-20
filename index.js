@@ -135,8 +135,8 @@ function drawCakeCounter() {
     ctx.textAlign = "center"
     ctx.fillStyle = "white";
     ctx.lineWidth = 2.5;
-    ctx.fillText(37, canvas.width / 2 + 10, canvas.height / 2);
-    ctx.strokeText(37, canvas.width / 2 + 10, canvas.height / 2);
+    ctx.fillText(counter, canvas.width / 2 + 10, canvas.height / 2);
+    ctx.strokeText(counter, canvas.width / 2 + 10, canvas.height / 2);
 
     ctx.closePath();
 }
