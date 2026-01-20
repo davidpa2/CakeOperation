@@ -33,6 +33,7 @@ window.addEventListener("resize", function() {
     canvas.height = window.innerHeight;
 }, true);
 
+
 function gameLoop() {
     drawBackground();
     drawCakeCounter();
@@ -46,6 +47,7 @@ function gameLoop() {
         drawExplosion();
     } else {
         drawConfetti();
+        drawWinWords();
     }
 
     if (theEnd) {
@@ -162,6 +164,22 @@ function drawConfetti() {
             colors: ["#ff0000", "#ffffff", "#1100ff"]
         });
     }
+}
+
+function drawWinWords() {
+    ctx.beginPath();
+
+    ctx.font = "70px Times";
+    ctx.textAlign = "center"
+    ctx.fillStyle = "white";
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 2.5;
+    ctx.fillText("Feliz", canvas.width / 2 + 10, canvas.height / 3.6);
+    ctx.strokeText("Feliz", canvas.width / 2 + 10, canvas.height / 3.6);
+    ctx.fillText("cumpleaños", canvas.width / 2 + 10, canvas.height / 1.5);
+    ctx.strokeText("cumpleaños", canvas.width / 2 + 10, canvas.height / 1.5);
+
+    ctx.closePath();
 }
 
 function checkImpact(e) {
