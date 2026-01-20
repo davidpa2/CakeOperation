@@ -24,7 +24,7 @@ var time = 0;
 var red = 0, green = 0, blue = 0;
 
 var theEnd = false;
-var win = true;
+var win = false;
 
 gameLoop();
 var game = setInterval(gameLoop, 15);
