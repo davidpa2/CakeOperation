@@ -19,6 +19,7 @@ var cakeFrequency = 75;
 var counter = 0;
 var timer = 30;
 var seconds = 30;
+var time = 0;
 
 var theEnd = false;
 var win = false;
@@ -55,6 +56,7 @@ function gameLoop() {
     }
 
     ctx.imageSmoothingQuality = "high";
+    time++;
 }
 
 function drawBackground() {
@@ -114,7 +116,12 @@ function drawCakes() {
 function drawCakeCounter() {
     ctx.beginPath();
 
-    ctx.font = "120px Times";
+    if (win) {
+        var textSize = Math.abs(90 * Math.sin(time * 0.01)) + 60;
+        ctx.font = `${textSize}px Times`;
+    } else {
+        ctx.font = "120px Times";
+    }
     ctx.textAlign = "center"
     ctx.fillStyle = "white";
     ctx.strokeStyle = "black";
