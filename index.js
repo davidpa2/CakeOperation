@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d", { willReadFrequently: true });
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-var button = new Button(canvas.width / 4.6, canvas.height - 60, 240, 40);
+var button = new Button(canvas.width / 2 - 120, canvas.height - 60, 240, 40);
 
 var cakeImg = new Image();
 cakeImg.src = "cake.png";
@@ -67,7 +67,7 @@ function gameLoop() {
 
 function drawBackground() {
     ctx.fillStyle = "lightblue";
-    ctx.fillRect(0, 0, canvas.width, canvas.height); // Green background (grass)
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function drawCakes() {
@@ -148,21 +148,27 @@ function drawCakeCounter() {
 function drawClock() {
     ctx.beginPath();
     ctx.drawImage(clockImg, 0, 0, 60, 60);
-
+    
     ctx.font = "45px Times";
     ctx.textAlign = "center"
     ctx.fillStyle = "white";
     ctx.fillText(seconds, 85, 45);
-
+    
     ctx.closePath();
 }
 
 function drawAdvice() {
     if (showAdvice) {
+        ctx.beginPath();
+        ctx.font = "7vw Times";
         ctx.fillStyle = "red";
         ctx.strokeStyle = "white";
-        ctx.font = "6vw Times";
+        ctx.lineWidth = 0.5;
+
         ctx.fillText("¡Toca las tartas para sumar 37!", canvas.width / 2, canvas.height - 50, canvas.width - 40);
+        ctx.strokeText("¡Toca las tartas para sumar 37!", canvas.width / 2, canvas.height - 50, canvas.width - 40);
+
+        ctx.closePath();
     }
 }
 
