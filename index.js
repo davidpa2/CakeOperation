@@ -23,6 +23,8 @@ var time = 0;
 
 var red = 0, green = 0, blue = 0;
 
+var showAdvice = true;
+
 var theEnd = false;
 var win = false;
 
@@ -48,6 +50,8 @@ function gameLoop() {
         checkState();
         
         drawExplosion();
+
+        drawAdvice();
     } else {
         drawConfetti();
         drawWinWords();
@@ -153,6 +157,15 @@ function drawClock() {
     ctx.closePath();
 }
 
+function drawAdvice() {
+    if (showAdvice) {
+        ctx.fillStyle = "red";
+        ctx.strokeStyle = "white";
+        ctx.font = "6vw Times";
+        ctx.fillText("¡Toca las tartas para sumar 37!", canvas.width / 2, canvas.height - 50, canvas.width - 40);
+    }
+}
+
 function drawReplaybutton() {
     ctx.beginPath();
     ctx.roundRect(button.x, button.y, button.width, button.height, 12);
@@ -204,12 +217,14 @@ function checkImpact(e) {
             cakes.delete(key);
             counter += cake.number;
             createExplosion(e);
+            showAdvice = false;
         }
     }
 }
 
 async function checkState() {
     if (seconds === 0) {
+        showAdvice = false;
         clearInterval(timer);
         clearInterval(game);
         theEnd = true;
