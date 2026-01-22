@@ -27,6 +27,7 @@ var showAdvice = true;
 
 var theEnd = false;
 var win = false;
+var lost = false;
 
 gameLoop();
 var game = setInterval(gameLoop, 15);
@@ -59,6 +60,10 @@ function gameLoop() {
 
     if (theEnd) {
         drawReplaybutton();
+
+        if (lost) {
+            drawLostWords();
+        }
     }
 
     ctx.imageSmoothingQuality = "high";
@@ -187,6 +192,16 @@ function drawReplaybutton() {
     ctx.closePath();
 }
 
+function drawLostWords() {
+    ctx.font = "13vw Times";
+    ctx.textAlign = "center"
+    ctx.fillStyle = "red";
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 0.5;
+    ctx.fillText("¡Has perdido!", canvas.width / 2, canvas.height / 1.7, canvas.width);
+    ctx.strokeText("¡Has perdido!", canvas.width / 2, canvas.height / 1.7, canvas.width);
+}
+
 function drawConfetti() {
     var number = random(0,200);
 
@@ -234,6 +249,7 @@ async function checkState() {
         clearInterval(timer);
         clearInterval(game);
         theEnd = true;
+        lost = true;
     }
     
     if (counter === 37) {
