@@ -1,11 +1,3 @@
-
-// Request animation frame
-const requestAnimationFrame = window.requestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.msRequestAnimationFrame;
-
-// Options
 const particlesPerExplosion = 20;
 const particlesMinSpeed = 3;
 const particlesMaxSpeed = 6;
@@ -20,7 +12,6 @@ function drawExplosion() {
     }
 
     for (let i = 0; i < explosions.length; i++) {
-
         const explosion = explosions[i];
         const particles = explosion.particles;
 
@@ -72,7 +63,6 @@ function createExplosion(e) {
     explosions.push(
         new explosion(xPos, yPos)
     );
-
 }
 
 // Explosion
@@ -95,7 +85,6 @@ function particle(x, y) {
     this.size = randInt(particlesMinSize, particlesMaxSize, true);
 
     let rnd = randInt(0,2, true);
-    console.log(rnd);
     
     if (rnd) {
         this.r = randInt(210, 255);
