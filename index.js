@@ -144,8 +144,8 @@ function drawCakeCounter() {
     ctx.textAlign = "center"
     ctx.fillStyle = "white";
     ctx.lineWidth = 2.5;
-    ctx.fillText(counter, canvas.width / 2 + 10, canvas.height / 2);
-    ctx.strokeText(counter, canvas.width / 2 + 10, canvas.height / 2);
+    ctx.fillText(counter, canvas.width / 2 + 5, canvas.height / 2);
+    ctx.strokeText(counter, canvas.width / 2 + 5, canvas.height / 2);
 
     ctx.closePath();
 }
@@ -203,7 +203,7 @@ function drawLostWords() {
 }
 
 function drawConfetti() {
-    var number = random(0,200);
+    var number = random(0, 180);
 
     if (number === 1) {
         confetti({
@@ -219,15 +219,15 @@ function drawConfetti() {
 function drawWinWords() {
     ctx.beginPath();
 
-    ctx.font = "70px Times";
+    ctx.font = "65px Times";
     ctx.textAlign = "center"
     ctx.fillStyle = "white";
     ctx.strokeStyle = "black";
     ctx.lineWidth = 2.5;
-    ctx.fillText("Feliz", canvas.width / 2 + 10, canvas.height / 3.6);
-    ctx.strokeText("Feliz", canvas.width / 2 + 10, canvas.height / 3.6);
-    ctx.fillText("cumpleaños", canvas.width / 2 + 10, canvas.height / 1.5);
-    ctx.strokeText("cumpleaños", canvas.width / 2 + 10, canvas.height / 1.5);
+    ctx.fillText("Feliz", canvas.width / 2, canvas.height / 3.6);
+    ctx.strokeText("Feliz", canvas.width / 2, canvas.height / 3.6);
+    ctx.fillText("cumpleaños", canvas.width / 2, canvas.height / 1.5);
+    ctx.strokeText("cumpleaños", canvas.width / 2, canvas.height / 1.5);
 
     ctx.closePath();
 }
