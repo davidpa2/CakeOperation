@@ -114,7 +114,7 @@ function drawCakes() {
     // Generate a cake
     if (generateCake == cakeFrequency) {
         let cakeSize = 60;
-        let cake = new Cake(cakeIdGenerator, random(0, canvas.width - cakeSize), - cakeSize, 1.8, cakeSize, cakeSize, random(-10, 10));
+        let cake = new Cake(cakeIdGenerator, random(0, canvas.width - cakeSize), - cakeSize, random(15, 24) * 0.1, cakeSize, cakeSize, random(-10, 10));
         cakes.set(cake.id, cake);
         
         cakeIdGenerator++;
