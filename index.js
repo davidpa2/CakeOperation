@@ -186,7 +186,7 @@ function drawReplaybutton() {
     ctx.strokeStyle = '#0d00ca';
     ctx.stroke();
     ctx.closePath();
-    ctx.font = '25pt Times';
+    ctx.font = '35px Times';
     ctx.fillStyle = '#000000';
     ctx.fillText('Jugar de nuevo', button.x + button.width / 2, button.y + (button.height / 2 + 10));
     ctx.closePath();
