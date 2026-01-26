@@ -1,5 +1,5 @@
 class Cake {
-    constructor(id, x, y, speed, sizeX, sizeY, number) {
+    constructor(id, x, y, speed, sizeX, sizeY, number, symbol) {
         this.id = id;
         this.x = x;
         this.y = y;
@@ -7,6 +7,7 @@ class Cake {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.number = number;
+        this.symbol = symbol;
     }
 }
 

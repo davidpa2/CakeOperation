@@ -84,24 +84,29 @@ function drawCakes() {
         ctx.drawImage(cakeImg, cake.x, cake.y, cake.sizeX, cake.sizeY);
         
         ctx.font = "bold 45px Archivo Black";
-
-        switch (true) {
-            case cake.number > 0:
+            
+        switch (cake.symbol) {
+            case "+":
                 ctx.fillStyle = "Green";
                 break;
-            case cake.number < 0:
+            case "-":
                 ctx.fillStyle = "Red";
                 break;
+            case "x":
+                ctx.fillStyle = "Orange";
+                break;
+            case "/":
+                ctx.fillStyle = "Blue";
+                break;
             default:
-                ctx.fillStyle = "Green";
                 break;
         }
         
         ctx.textAlign = "center"
         ctx.strokeStyle = "white";
         ctx.lineWidth = 1;
-        ctx.fillText(cake.number, cake.x + offsetX, cake.y + offsetY);
-        ctx.strokeText(cake.number, cake.x + offsetX, cake.y + offsetY);
+        ctx.fillText(`${cake.symbol}${Math.abs(cake.number)}`, cake.x + offsetX, cake.y + offsetY);
+        ctx.strokeText(`${cake.symbol}${Math.abs(cake.number)}`, cake.x + offsetX, cake.y + offsetY);
         ctx.closePath();
         cake.y += cake.speed // Increase its Y position to move the cake
 
@@ -114,7 +119,27 @@ function drawCakes() {
     // Generate a cake
     if (generateCake == cakeFrequency) {
         let cakeSize = 60;
+
         let cake = new Cake(cakeIdGenerator, random(0, canvas.width - cakeSize), - cakeSize, random(15, 24) * 0.1, cakeSize, cakeSize, random(-10, 10));
+
+        var cakeNumber = random(-10, 10);
+        switch (true) {
+            case cakeNumber > 0:
+                cake.number = cakeNumber;
+                cake.symbol = "+";
+                break;
+            case cakeNumber < 0:
+                cake.number = cakeNumber;
+                cake.symbol = "-";    
+                break;
+            case cakeNumber == 0:
+                cake.number = random(2, 3);
+                cake.symbol = random(1, 2) === 1 ? "x" : "/";
+                break;
+            default:
+                break;
+        }
+
         cakes.set(cake.id, cake);
         
         cakeIdGenerator++;
@@ -234,9 +259,26 @@ function drawWinWords() {
 
 function checkImpact(e) {
     for (const [key, cake] of cakes) {
-        if ((e.x > cake.x && e.x < cake.x + 50) && (e.y > cake.y && e.y < cake.y + 50)) {//
+        if ((e.x > cake.x && e.x < cake.x + 50) && (e.y > cake.y && e.y < cake.y + 50)) {
+            
+            switch (cake.symbol) {
+                case "+":
+                    counter += cake.number;
+                    break;
+                    case "-":
+                        counter -= cake.number;
+                        break;
+                        case "x":
+                            counter *= cake.number;
+                    break;
+                    case "/":
+                        counter *= cake.number;
+                        break;
+                default:
+                    break;
+                }
+                
             cakes.delete(key);
-            counter += cake.number;
             createExplosion(e);
             showAdvice = false;
         }
@@ -322,6 +364,5 @@ function setVariableRGB() {
 
 function random(min, max) {
     const num = Math.floor(Math.random() * (max - min + 1)) + min;
-    if (num === 0) return num + random(1, 10); //To avoid number 0
     return num;
 }
