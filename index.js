@@ -262,7 +262,8 @@ function checkImpact(e) {
         if ((e.x > cake.x && e.x < cake.x + 50) && (e.y > cake.y && e.y < cake.y + 50)) {
             
             switch (cake.symbol) {
-                case "+", "-":
+                case "+":
+                case "-":
                     counter += cake.number;
                     break;
                 case "x":
