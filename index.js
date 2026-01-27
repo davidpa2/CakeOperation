@@ -133,7 +133,7 @@ function drawCakes() {
                 cake.symbol = "-";    
                 break;
             case cakeNumber == 0:
-                cake.number = random(2, 3);
+                cake.number = 2;
                 cake.symbol = random(1, 2) === 1 ? "x" : "/";
                 break;
             default:
@@ -267,10 +267,10 @@ function checkImpact(e) {
                     counter += cake.number;
                     break;
                 case "x":
-                    counter *= cake.number;
+                    counter = parseInt(counter * cake.number);
                     break;
                 case "/":
-                    counter /= cake.number;
+                    counter = parseInt(counter / cake.number);
                     break;
                 default:
                     break;
