@@ -122,7 +122,7 @@ function drawCakes() {
 
         let cake = new Cake(cakeIdGenerator, random(0, canvas.width - cakeSize), - cakeSize, random(15, 24) * 0.1, cakeSize, cakeSize, random(-10, 10));
 
-        var cakeNumber = random(-10, 10);
+        var cakeNumber = random(-9, 9);
         switch (true) {
             case cakeNumber > 0:
                 cake.number = cakeNumber;
