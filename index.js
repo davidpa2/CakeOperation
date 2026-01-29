@@ -23,6 +23,8 @@ var time = 0;
 
 var red = 0, green = 0, blue = 0;
 
+var confettiNumber = 1;
+
 var showAdvice = true;
 
 var theEnd = false;
@@ -228,9 +230,7 @@ function drawLostWords() {
 }
 
 function drawConfetti() {
-    var number = random(0, 180);
-
-    if (number === 1) {
+    if (confettiNumber === 1) {
         confetti({
             angle: random(55, 125),
             spread: random(50, 70),
@@ -239,6 +239,8 @@ function drawConfetti() {
             colors: ["#ff0000", "#ffffff", "#1100ff"]
         });
     }
+
+    confettiNumber = random(0, 180);
 }
 
 function drawWinWords() {
