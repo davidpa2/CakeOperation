@@ -34,6 +34,7 @@ var lost = false;
 gameLoop();
 var game = setInterval(gameLoop, 15);
 
+// Event listeners
 canvas.addEventListener("click", (e) => { checkImpact(e); checkButtonClick(e);}, false);
 window.addEventListener("load", () => { setTimer(); })
 window.addEventListener("resize", function() {
@@ -87,6 +88,7 @@ function drawCakes() {
         
         ctx.font = "bold 45px Archivo Black";
             
+        // Select number color by symbol
         switch (cake.symbol) {
             case "+":
                 ctx.fillStyle = "Green";
@@ -124,6 +126,7 @@ function drawCakes() {
 
         let cake = new Cake(cakeIdGenerator, random(0, canvas.width - cakeSize), - cakeSize, random(15, 24) * 0.1, cakeSize, cakeSize, random(-10, 10));
 
+        // Select cake number and symbol
         var cakeNumber = random(-9, 9);
         switch (true) {
             case cakeNumber > 0:
@@ -134,7 +137,7 @@ function drawCakes() {
                 cake.number = cakeNumber;
                 cake.symbol = "-";    
                 break;
-            case cakeNumber == 0:
+            case cakeNumber == 0: //If cakeNumber = 0, we'll convert it to multiplication or division
                 cake.number = 2;
                 cake.symbol = random(1, 2) === 1 ? "x" : "/";
                 break;
@@ -239,7 +242,7 @@ function drawConfetti() {
             colors: ["#ff0000", "#ffffff", "#1100ff"]
         });
     }
-
+    // To ensure a first confetti shot, confettiNumber is 1 at first, but then we generate a random number
     confettiNumber = random(0, 180);
 }
 
@@ -262,7 +265,7 @@ function drawWinWords() {
 function checkImpact(e) {
     for (const [key, cake] of cakes) {
         if ((e.x > cake.x && e.x < cake.x + 50) && (e.y > cake.y && e.y < cake.y + 50)) {
-            
+            // We have to do different operations according to the symbol of the cake
             switch (cake.symbol) {
                 case "+":
                 case "-":
@@ -328,6 +331,9 @@ function isInside(position, rect) {
     return position.x > rect.x && position.x < rect.x + rect.width && position.y < rect.y + rect.height && position.y > rect.y
 }
 
+/**
+ * Making an RBG change color effect
+ */
 function setVariableRGB() {
     if (green === 0 && blue === 0) {
         if (red < 255) {
