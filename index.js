@@ -73,7 +73,7 @@ function gameLoop() {
 }
 
 function drawBackground() {
-    ctx.fillStyle = "lightblue";
+    ctx.fillStyle = "rgb(108, 213, 248)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
