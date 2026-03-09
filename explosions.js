@@ -22,7 +22,6 @@ function drawExplosion() {
 
         const particlesAfterRemoval = particles.slice();
         for (let ii = 0; ii < particles.length; ii++) {
-
             const particle = particles[ii];
 
             // Check particle size
